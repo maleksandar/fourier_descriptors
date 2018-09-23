@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            <div class="search">
+                <div class="image-group">
+                    <img src="images/twitter2.png" alt="twitter2">
+                    <button @click="search('twitter2')"> simillar? </button>
+                </div>
+                <div class="image-group">
+                    <img src="images/masina.png" alt="masina">
+                    <button @click="search('masina')"> simillar? </button>
+                </div>
+                <div class="image-group">
+                    <img src="images/tennis2.png" alt="tennis2">
+                    <button @click="search('tennis2')"> simillar? </button>
+                </div>
+            </div>
+            <div class="results">
+                <div v-for="result in search_results">
+                <img :src="result.path" :alt="result.path">{{ result.distance }}
+            </div>
+    </div>
+    <h1>
+        Pretraga slika pomocu furijeovih deskriptora
+    </h1>
+
+    <div class="result">
+
+    </div>
+
+    <script>
+        
+    function search(term) {
+        let resultArea = document.querySelector('.result');
+        resultArea.childNodes.forEach(x => x.remove());
+
+        // let fileInput = document.getElementById('fileInput');
+        fetch(`/search/${term}`)
+            .then(response =>response.json())
+            .then(response => {
+                // console.log(response);
+                response.forEach((image)=>{
+                    let imageElement = document.createElement('img');
+                    imageElement.setAttribute('src', image.path);
+                    resultArea.appendChild(imageElement);
+                })
+            });
+        
+
+    }
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            search_results: [],
+        },
+        methods: {
+            search: function(term) {
+                fetch(`/search/${term}`)
+                    .then(response =>response.json())
+                    .then(response => {
+                        this.search_results = response
+                    })
+                }}
+        });
+    </script>
+</body>
+</html>
