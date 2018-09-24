@@ -9,6 +9,9 @@ The solution in this repo consists of two main parts:
 - Module for calculating the GFD (generic Fourirer descriptor)
 - Web server that enebles the simple demonstration of the search
 
+## Live demo
+You can see live demo of the app deployed on heroku on: [fgd-image-search demo](https://fgd-image-search.herokuapp.com/) 
+
 ## Solution
 ### Simplification:
 The solution in the main module takes some assumptions:
@@ -26,11 +29,11 @@ For any editor:
     - On unix based systems (linux / mac) open terminal and run: 
     `export FLASK_APP="web_server.py"`
 3. At the root folder run command: `flask run`
+4. Visit `0.0.0.0:5000` for local development
 
 If you are using vs code:
 1. The first step is the same as for any editor (*see instructions above*)
 2. Copy & paste this configuration into configuration array in `.vscode/launch.json`
-3. Open debug session tab and click on play button
 ```
 {
     "name": "Python: Flask",
@@ -48,6 +51,8 @@ If you are using vs code:
     "jinja": true
 }
 ```
+3. Open debug session tab and click on play button
+4. Visit `0.0.0.0:5000` for local development
 
-## Run
+
 You can also run the app from the terminal with `python web_server.py`
