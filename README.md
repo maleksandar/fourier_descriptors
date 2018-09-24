@@ -54,5 +54,7 @@ If you are using vs code:
 3. Open debug session tab and click on play button
 4. Visit `0.0.0.0:5000` for local development
 
-
 You can also run the app from the terminal with `python web_server.py`
+
+## Presentation
+[Google Docs Presentation](https://docs.google.com/presentation/d/1GRu_zzV7ugnXUYwxSmmy9c18RrzdXvhnh_uSPBY0UJ4/edit?usp=sharing)
