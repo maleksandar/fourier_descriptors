@@ -5,14 +5,14 @@ from matplotlib import pyplot as plt
 import math as math
 
 
-def menhetn_rastojanje(vec1, vec2):
+def manhattan_distance(vec1, vec2):
     return np.sum(np.abs(vec1 - vec2))
 
 def GFD(bw, m, n):
+    # preprocess the image
     if len(bw.shape) > 2:
         bw = bw.max(axis = 2) / 255
     width = bw.shape[1]
-    # height = bw.shape[0]
     N = width
     maxR = math.sqrt((((N)//2)**2) + (((N)//2)**2))
 
@@ -33,8 +33,10 @@ def GFD(bw, m, n):
     for rad in range(m):
         for ang in range(n):
             # e^(i * theta) = cos(theta) + i * sin(theta)
+            # PF = FR + i * FI
+
             tempR = bw * np.cos(2 * np.pi * rad * radius + ang * theta)
-            tempI = -1 * bw * np.sin(2 * np.pi * rad * radius + ang * theta)
+            tempI = bw * np.sin(2 * np.pi * rad * radius + ang * theta)
             FR[rad, ang] = np.sum(tempR)
             FI[rad, ang] = np.sum(tempI)
             
@@ -48,7 +50,9 @@ def GFD(bw, m, n):
 image_names = [
     'facebook',
     'instagram1',
+    'instagram2',
     'tennis1',
+    'tennis3',
     'twitter1'
 ]
 
@@ -62,8 +66,9 @@ def search(image_name):
     image = np.array(Image.open('images/'+image_name+'.png'))
     gfd = GFD(image, 4, 9)
     for db_image in db:
-        stats.append({'distance': menhetn_rastojanje(gfd, db_image['descriptor']), 'path': db_image['path'] })
+        stats.append({'distance': manhattan_distance(gfd, db_image['descriptor']), 'path': db_image['path'] })
         stats.sort(key=distance)
     return stats
+
 def distance(stat):
     return stat['distance']

@@ -3,7 +3,7 @@
 ## Project
 This repo contains a faculty project on Mathematical faculty at the University of Belgrade for "Scientific Calculations" course. The subject of the project is "Image searching using Fourier descriptors".
 
-Main literature used: [Generic Fourier Descriptor for Shape-based Image Retrieval link](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.69.3839&rep=rep1&type=pdf)
+Main literature used: [Generic Fourier Descriptor for Shape-based Image Retrieval](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.69.3839&rep=rep1&type=pdf)
 
 The solution in this repo consists of two main parts:
 - Module for calculating the GFD (generic Fourirer descriptor)

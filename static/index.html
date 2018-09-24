@@ -1,77 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./static/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./static/styles.css">
     <title>Document</title>
 </head>
+
 <body>
-    <div id="app">
+    <div class="container">
+        <h1>
+            Image search implemented using Generic Fourier Descriptors
+        </h1>
+        <div id="app">
+            <h2>Search:</h2>
+            <p>
+                <b>Tip:</b> Click on any image or button bellow the image to search for images in the database that are
+                similar to the selected image.
+            </p>
             <div class="search">
                 <div class="image-group">
-                    <img src="images/twitter2.png" alt="twitter2">
-                    <button @click="search('twitter2')"> simillar? </button>
+                    <img src="images/twitter2.png" alt="twitter2" @click="search('twitter2')">
+                    <button class="search-button btn btn-default" @click="search('twitter2')"> search for similar
+                    </button>
                 </div>
                 <div class="image-group">
-                    <img src="images/masina.png" alt="masina">
-                    <button @click="search('masina')"> simillar? </button>
+                    <img src="images/masina.png" alt="masina" @click="search('masina')">
+                    <button class="search-button btn btn-default" @click="search('masina')"> search for similar
+                    </button>
                 </div>
                 <div class="image-group">
-                    <img src="images/tennis2.png" alt="tennis2">
-                    <button @click="search('tennis2')"> simillar? </button>
+                    <img src="images/tennis2.png" alt="tennis2" @click="search('tennis2')">
+                    <button class="search-button btn btn-default" @click="search('tennis2')"> search for similar
+                    </button>
                 </div>
             </div>
+            <h2 v-if="search_results.length">
+                Results:
+            </h2>
+            <p v-if="search_results.length">
+                Results are sorted based on similarity to the searched image. Bellow the images are their (city-block)
+                distances in terms of GFD to the searched image:
+            </p>
             <div class="results">
-                <div v-for="result in search_results">
-                <img :src="result.path" :alt="result.path">{{ result.distance }}
+                <div class="result-box" v-for="result in search_results">
+                    <img :src="result.path" :alt="result.path" @click="search(result.name)">
+                    <div>
+                        <div>
+                            Distance: {{ result.distance.toFixed(4) }}
+                        </div>
+                        <div>
+                            <i> Name: {{result.name}} </i>
+                        </div>
+                    </div>
+                </div>
             </div>
-    </div>
-    <h1>
-        Pretraga slika pomocu furijeovih deskriptora
-    </h1>
 
-    <div class="result">
-
-    </div>
-
-    <script>
-        
-    function search(term) {
-        let resultArea = document.querySelector('.result');
-        resultArea.childNodes.forEach(x => x.remove());
-
-        // let fileInput = document.getElementById('fileInput');
-        fetch(`/search/${term}`)
-            .then(response =>response.json())
-            .then(response => {
-                // console.log(response);
-                response.forEach((image)=>{
-                    let imageElement = document.createElement('img');
-                    imageElement.setAttribute('src', image.path);
-                    resultArea.appendChild(imageElement);
-                })
+        </div>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    search_results: [],
+                },
+                methods: {
+                    search: function (term) {
+                        fetch(`/search/${term}`)
+                            .then(response => response.json())
+                            .then(response => {
+                                this.search_results = response.map(x => {
+                                    let result = {};
+                                    Object.assign(result, x);
+                                    result.name = result.path.split('/')[1].split('.')[0];
+                                    return result;
+                                })
+                            })
+                    }
+                }
             });
-        
-
-    }
-
-    var app = new Vue({
-        el: '#app',
-        data: {
-            search_results: [],
-        },
-        methods: {
-            search: function(term) {
-                fetch(`/search/${term}`)
-                    .then(response =>response.json())
-                    .then(response => {
-                        this.search_results = response
-                    })
-                }}
-        });
-    </script>
+        </script>
 </body>
+
 </html>

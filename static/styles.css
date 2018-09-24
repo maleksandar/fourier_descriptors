@@ -12,6 +12,19 @@ body {
     font-size: 1.6rem;
 }
 
+h1 {
+    text-align: center;
+    font-size: 3.5rem;
+}
+
+p {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+
+}
+img {
+    cursor: pointer;
+}
 .image-group {
     display: flex;
     flex-direction: column;
@@ -25,6 +38,17 @@ body {
 .results {
     display: flex;
     justify-content: space-around;
+}
+
+.result-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-button {
+    font-size: 1.6rem;
+    margin: 1rem;
 }
 
 img, button {
