@@ -3,7 +3,9 @@ from flask import Flask, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from main import search
+
 app = Flask(__name__, static_url_path='/static')
+
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
