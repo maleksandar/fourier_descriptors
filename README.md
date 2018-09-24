@@ -48,3 +48,6 @@ If you are using vs code:
     "jinja": true
 }
 ```
+
+## Run
+You can also run the app from the terminal with `python web_server.py`
