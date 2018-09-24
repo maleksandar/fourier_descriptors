@@ -1,3 +1,4 @@
 furije_venv
 .vscode
 .directory
+*.pyc

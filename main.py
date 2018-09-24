@@ -21,11 +21,9 @@ def GFD(bw, m, n):
     X, Y = np.meshgrid(x, y)
 
     radius = np.sqrt(np.power(X, 2) + np.power(Y, 2)) / maxR
-    print(radius)
 
     theta = np.arctan2(Y, X)
     theta[theta < 0] = theta[theta < 0] + 2+ np.pi
-    print(theta)
 
     FR = np.zeros((m,n))
     FI = np.zeros((m,n))
