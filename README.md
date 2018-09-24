@@ -18,17 +18,19 @@ Note: *The solution can be expanded to search over colored images by first trans
 
 ## Build and run
 For any editor:
-
-1. Set environment variable `FLASK_APP` on your system to `web_server.py`
+1. In the root folder run `pip install -r requirements.txt`
+    - *It's highly recomended to use virtual environment: [python virtual envs](https://docs.python-guide.org/dev/virtualenvs/)*
+2. Set environment variable `FLASK_APP` on your system to `web_server.py`
     - On windows open cmd and run:
      ```set FLASK_APP=web_server.py```
     - On unix based systems (linux / mac) open terminal and run: 
     `export FLASK_APP="web_server.py"`
-2. At the root folder run command: `flask run`
+3. At the root folder run command: `flask run`
 
 If you are using vs code:
-1. Copy & paste this config into `.vscode/launch.json`
-2. Open debug session tab and click on play button
+1. The first step is the same as for any editor (*see instructions above*)
+2. Copy & paste this configuration into configuration array in `.vscode/launch.json`
+3. Open debug session tab and click on play button
 ```
 {
     "name": "Python: Flask",
